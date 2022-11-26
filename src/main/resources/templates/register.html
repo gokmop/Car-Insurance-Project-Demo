@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Register - Create an account!</title>
+<!--Favicon Ico with Car-->
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon.ico}" href="../static/assets/img/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script th:src="@{https://use.fontawesome.com/releases/v5.13.0/js/all.js}" src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link th:href="@{https://fonts.googleapis.com/css?family=Montserrat:400,700}" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link th:href="@{https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic}" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+<link th:href="@{https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700}" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" href="../static/css/styles.css" rel="stylesheet" />
+<link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}"   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" crossorigin="anonymous">
+<link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js}" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="sidenav-register">
+        <div class="login-main-text">
+           <h2>Safety Car<br> Register Page</h2>
+           <p>Please fill out the form to start the registration process</p>
+        </div>
+     </div>
+     <div class="main">
+        <div class="col-md-6 col-sm-12">
+           <div class="register-form">
+              <form th:action="@{/register}" th:object="${createUserDto}" method="post">
+                  <label th:text="${registerFirst}"></label>
+                 <div class="form-group">
+                    <label>E-mail:</label>
+                     <span class="error" th:errors="*{email}"></span>
+                     <br/>
+                    <input type="text" th:field="*{email}" id="username" name="username" class="form-control" placeholder="E-mail">
+                 </div>
+                 <div class="form-group">
+                    <label>Password</label>
+                     <span class="error" th:errors="*{password}"></span>
+                     <br/>
+                    <input type="password" th:field="*{password}" class="form-control" placeholder="Password" id="password" name="password" >
+                 </div>
+
+                 <div class="form-group">
+                  <label>Confirm password</label>
+                     <span class="error" th:errors="*{confirmationPassword}"></span>
+                     <span class="error" th:errors="${createUserDto}"></span>
+                     <br/>
+                  <input type="password" th:field="*{confirmationPassword}" class="form-control" placeholder="Confirm password" id="confirm-password" name="password" >
+                 </div>
+
+                  <div class="form-group">
+                      <span class="error" th:field="*{birthDate}" th:errors="*{birthDate}"></span>
+                      <br/>
+                      <label>Birth date</label>
+                      <input type="date" class="form-control" id="birthDate" name="birthDate" >
+                  </div>
+
+                <!--
+                                  <div class="form-group">
+                      <label>First Name</label>
+                      <span class="error" th:errors="*{userName}"></span>
+                      <br/>
+                      <input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName" >
+                  </div>
+
+                  <div class="form-group">
+                      <label>Last Name</label>
+                      <span class="error" th:errors="*{userName}"></span>
+                      <br/>
+                      <input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName" >
+                  </div>
+
+
+                 <div class="form-group">
+                  <label>Phone number</label>
+                  <input type="text" class="form-control" placeholder="Phone number" id="phoneNumber" name="phoneNumber" />
+                 </div>
+
+                 <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control" placeholder="Address" id="Address" name="Address" >
+                 </div>
+                 -->
+
+                 <!-- <button type="submit" class="btn btn-black">Login</button> -->
+                 <button type="submit" class="btn btn-success">Register</button>
+                 <hr>
+              </form>
+           </div>
+        </div>
+     </div>
+
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+</body>
+</html>

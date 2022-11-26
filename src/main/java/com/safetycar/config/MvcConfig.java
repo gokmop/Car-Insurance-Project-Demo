@@ -1,0 +1,75 @@
+package com.safetycar.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+
+import static com.safetycar.util.Constants.ConfigConstants.COM_SAFETYCAR_WEB;
+
+@Configuration
+@ComponentScan(basePackages = {COM_SAFETYCAR_WEB})
+public class MvcConfig implements WebMvcConfigurer {
+
+    private final MessageSource messageSource;
+
+    @Autowired
+    public MvcConfig(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    @Override
+    public void addViewControllers(final ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("/index");
+        registry.addViewController("/index.html");
+    }
+
+    @Override
+    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/", "/resources/", "/assets/", "/css/", "/js/");
+    }
+
+    @Override
+    public void addInterceptors(final InterceptorRegistry registry) {
+        final LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        registry.addInterceptor(localeChangeInterceptor);
+    }
+
+//    @Bean
+//    public LocaleResolver localeResolver() {
+//        final CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+//        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+//        return cookieLocaleResolver;
+//    }
+
+    @Bean
+    @ConditionalOnMissingBean(RequestContextListener.class)
+    public RequestContextListener requestContextListener() {
+        return new RequestContextListener();
+    }
+
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource);
+        return validator;
+    }
+
+}

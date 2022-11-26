@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home - Safety Car!</title>
+    <link th:href="@{/assets/img/favicon.ico}" rel="shortcut icon" href="static/asset/favicon.png"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}"
+          href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"
+          type="text/css">
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/easy-responsive-tabs.css}" rel="stylesheet" type="text/css"
+          href="/static/css/easy-responsive-tabs.css"/>
+    <link th:href="@{/css/flexslider.css}" rel="stylesheet" type="text/css" href="/static/css/flexslider.css"/>
+    <link th:href="@{/css/owl.carousel.css}" rel="stylesheet" type="text/css" href="/static/css/owl.carousel.css">
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css" href="/static/css/icons.css">
+    <!--[if lt IE 8]><!-->
+    <link th:href="@{/css/ie7/ie7.css}" rel="stylesheet" href="/static/css/ie7/ie7.css">
+    <!--<![endif]-->
+    <link th:href="@{/css/styles.css}" href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script th:href="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"
+            src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script th:href="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"
+            src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".navbar-fixed-top">
+
+<div th:insert="fragments/general.html :: top-menu"></div>
+<div class="container-fluid">
+    <div class="row" id="heading-row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h2>SafetyCar Users</h2>
+            <hr>
+            <h4><i></i></h4>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div id="page-content">
+    <!--First Section after Menu-->
+    <div class="container-fluid">
+        <div class="row col-sm-10">
+            <div>
+                <h2>SafetyCar Users</h2>
+                <table class="table" style="align-content: space-evenly">
+                    <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Simulated Offers Count</th>
+                        <th>Approved Policies Count</th>
+                        <th>Approved Policies Net</th>
+                        <th>Pending Policies Count</th>
+                        <th>Pending Policies Net</th>
+                        <th>This User's Policies</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user: ${users}">
+                        <td th:text="${user.getFullName()}">Jill Smith</td>
+                        <td th:text="${user.getSimulatedOffers()}">0</td>
+                        <td th:text="${user.getApprovedNCount()}">1</td>
+                        <td th:text="${user.getApprovedPoliciesNet()}">0</td>
+                        <td th:text="${user.getPendingCount()}">1</td>
+                        <td th:text="${user.getPendingPoliciesNet()}">804.52</td>
+                        <td><a th:href="@{/policies/show/__${user.getUserId()}__}">Show Policies</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row col-sm-2" id="search-users-form"> Search from Users:
+            <form th:action="@{/users/search}" th:object="${searchUsersDto}" method="get">
+
+                <!-- Search input -->
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"></span>
+                    <label>
+                        Search By Full Name
+                        <input th:field="*{fullName}" type="text" class="form-control"
+                               placeholder=""
+                               aria-describedby="basic-addon1">
+                    </label>
+                </div>
+                <!--Policy Status Parameter-->
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="status-select">Filter By Policy Status</label>
+                </div>
+                <select th:field="*{policyStatus}" class="custom-select" id="status-select">
+                    <option selected value="">Any</option>
+                    <option value="active">Active</option>
+                    <option value="pending">Pending</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+                <!--Sort Parameter-->
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="sortParameter-select">Sort By ...</label>
+                </div>
+                <select th:field="*{sortParam}" class="custom-select" id="sortParameter-select">
+                    <option selected value="id">Any</option>
+                    <option value="pendingPoliciesNet">Pending Net</option>
+                    <option value="approvedPoliciesNet">Active Net</option>
+                    <option value="pendingPoliciesCount">Pending Count</option>
+                    <option value="approvedPoliciesCount">Active Count</option>
+                    <option value="offersCount">Offer Count</option>
+                </select>
+                <!-- Sort Asc or Desc  -->
+                <label for="user-order-input">Order</label>
+                <select id="user-order-input" th:field="*{desc}">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+                <!-- Search button  -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-warning">Search!</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div th:insert="fragments/general.html :: products"></div>
+
+    <hr>
+
+    <div th:insert="fragments/general.html :: services"></div>
+
+    <div th:insert="fragments/general.html :: testimonials"></div>
+
+    <div th:insert="fragments/general.html :: recent-news"></div>
+
+    <div th:insert="fragments/general.html :: partners"></div>
+</div>
+
+<div class="clear"></div>
+
+<div th:insert="fragments/general.html :: footer"></div>
+<script th:href="@{https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js}"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js}"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script th:href="@{http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js}"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.flexslider-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/easyResponsiveTabs.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

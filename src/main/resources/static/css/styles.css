@@ -1,0 +1,318 @@
+/*Login and Register style */
+body {
+    font-family: "Lato", sans-serif;
+}
+
+
+.main-head {
+    height: 150px;
+    background: #FFF;
+
+}
+
+.sidenav {
+    height: 100%;
+    background-image: url("../assets/img/login-page-background.jpg");
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav-register {
+    height: 100%;
+    background-image: url("../assets/img/login-page-background2.jpg");
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .login-form {
+        margin-top: 10%;
+    }
+
+    .register-form {
+        margin-top: 10%;
+    }
+
+    .details-form {
+        margin-top: 50%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        margin-left: 40%;
+    }
+
+    .sidenav {
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form {
+        margin-top: 80%;
+    }
+
+    .register-form {
+        margin-top: 50%;
+    }
+
+
+    .details-form {
+        margin-top: 50%;
+    }
+}
+
+
+
+.login-main-text {
+    margin-top: 20%;
+    padding: 60px;
+    color: #000;
+}
+
+.login-main-text h2 {
+    font-weight: 300;
+}
+
+.btn-black {
+    background-color: green !important;
+    color: #fff !important;
+}
+
+
+#heading-row {
+    padding-top: 150px;
+    padding-bottom: 20px;
+    padding-left: inherit;
+    padding-right: inherit;
+    font-family: inherit;
+    text-align: center;
+}
+
+#secondary-row-forms {
+    background-color: lightgray;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-left: 40%;
+    padding-right: 40%;
+    font-family: inherit;
+    text-align: center;
+
+}
+
+.error {
+    color: rgb(165, 2, 2);
+    font-style: italic;
+}
+
+#calculator-result {
+    text-align: center;
+    font-max-size: large;
+    font-weight: bold;
+}
+
+.offer-table-head {
+    color: #0098b0;
+    text-align: center;
+    font-max-size: large;
+    font-weight: bold;
+}
+
+.results {
+    padding-top: 8%;
+    padding-bottom: 30%;
+    font-family: inherit;
+    flex: max-content;
+    font-max-size: large;
+    text-align: left;
+}
+
+td {
+    padding: 4px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+tr:nth-child(even) {
+    background: #d6d6d6;
+}
+
+th {
+    background:#0098b0;
+    color: #000000;
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-max-size: large;
+    font-weight: bold;
+
+}
+#policy-information-well {
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+#policy-create-table{
+   
+    padding: 4px;
+    border: 1px solid black;
+    border-collapse: collapse;
+
+
+}
+
+#policies-list-table{
+
+    padding: 4px;
+    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+
+#upload-file-row{
+    align-content: center;
+    margin-left: 15px;
+}
+
+
+
+#dropdown-menu-safety-car{
+    display: inline-block;
+
+}
+
+.dropdown-item{ !important;
+    text-align: justify;
+    outline: none;
+    border: none;
+
+}
+
+#logged-user-details{
+    color: #1ee0ff;
+}
+
+
+@media screen and (max-height: 450px) {
+    .sidenav-register {
+        padding-top: 15px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .login-form {
+        margin-top: 10%;
+    }
+
+    .register-form {
+        margin-top: 10%;
+    }
+
+    .details-form {
+        margin-top: 50%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        margin-left: 40%;
+    }
+
+    .sidenav-register {
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form {
+        margin-top: 80%;
+    }
+
+    .register-form {
+        margin-top: 50%;
+    }
+
+
+    .details-form {
+        margin-top: 50%;
+    }
+}
+
+#sort-results{
+    margin-left: 15px;
+}
+
+#my-offers-container{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#add-offer-home{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 15px;
+}
+
+#home-page-image-block-to-calculator{
+    align-content: center;
+
+
+    margin-top: 15%;
+    margin-left: 15%;
+
+
+}
+
+#search-policies-form{
+
+    margin-left: 15px;
+    background: #d4d4d4;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#search-policies-form-agent{
+
+    margin-left: 15px;
+    background: #e9e9e9;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#policy-table-head{
+  !important border: none;
+    background: whitesmoke;
+}
+
+#policy-table-head .tr {
+!important  border: none;
+    background: whitesmoke;
+}
+#sort-offers-form{
+
+    margin-left: 15px;
+    background: #d4d4d4;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#search-users-form{
+
+    margin-left: 15px;
+    background: #d4d4d4;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

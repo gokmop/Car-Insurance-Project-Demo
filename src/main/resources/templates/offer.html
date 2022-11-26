@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Get your Offer - Safety Car -</title>
+    <link th:href="@{/assets/img/favicon.ico}" rel="shortcut icon" href="static/asset/favicon.png"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}"
+          href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"
+          type="text/css">
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/easy-responsive-tabs.css}" rel="stylesheet" type="text/css"
+          href="/static/css/easy-responsive-tabs.css"/>
+    <link th:href="@{/css/flexslider.css}" rel="stylesheet" type="text/css" href="/static/css/flexslider.css"/>
+    <link th:href="@{/css/owl.carousel.css}" rel="stylesheet" type="text/css" href="/static/css/owl.carousel.css">
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css" href="/static/css/icons.css">
+    <script type="application/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <!--[if lt IE 8]><!-->
+    <link th:href="@{/css/ie7/ie7.css}" rel="stylesheet" href="/static/css/ie7/ie7.css">
+    <!--<![endif]-->
+    <link th:href="@{/css/styles.css}" href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script th:href="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"
+            src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script th:href="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"
+            src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".navbar-fixed-top">
+
+<div th:insert="fragments/general.html :: top-menu"></div>
+
+<div class="clear"></div>
+
+
+<!--First Section after Menu-->
+<div class="container-fluid">
+    <div class="row" id="heading-row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h2>Get your Insurance Offer</h2>
+            <hr>
+            <h4><i>All fields are required!</i></h4>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+<!--Request Offer Section-->
+<div class="container-fluid">
+    <div class="row" id="secondary-row-forms">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form action="#"
+                  th:action="@{/dedicated/simulation}"
+                  th:object="${offerDto}" id="get-quote"
+                  method="post">
+                <!--Make-->
+
+                <div class="form-group">
+                    <div class="input-group-prepend">
+                        <label for="brand-dropdown">Select Car Make</label>
+                    </div>
+                    <span class="error" th:errors="*{makeId}"></span>
+                    <select class="form-control select-picker" id="brand-dropdown" th:field="*{makeId}">
+
+                        <option th:each="brand : ${brands}"
+                                th:value="${brand.id}"
+                                th:text="${brand.name}"
+                                th:data="${brand.id}"> make 1
+                        </option>
+
+                    </select>
+                </div>
+
+                <!--Model Dropdown -->
+                <div class="form-group">
+                    <label for="model-dropdown">Car model</label>
+                    <select id="model-dropdown" th:field="*{modelId}" class="form-control">
+
+                        <script th:inline="javascript" type="text/javascript">
+                            $(document).ready(function () {
+                                $('#brand-dropdown').change(
+                                    function () {
+                                        $.getJSON('/api/models/list/', {
+                                            brandId: $(this).val(),
+                                            ajax: 'true'
+                                        }, function (data) {
+                                            var html = '<option value="">Select Model</option>';
+                                            var len = data.length;
+                                            for (var i = 0; i < len; i++) {
+                                                html += '<option value="' + data[i].id + '">'
+                                                    + data[i].name + ' ' + data[i].year + '</option>';
+                                            }
+                                            html += '</option>';
+                                            $('#model-dropdown').html(html);
+                                            $("#model-dropdown").trigger('contentChanged');
+                                        });
+                                    });
+                            });
+                        </script>
+
+                    </select>
+                </div>
+
+                <!--Capacity-->
+                <div class="form-group">
+                    <div class="input-group-prepend">
+                        <label text="Capacity">Car Cubic Capacity</label>
+                    </div>
+                    <label class="error" th:errors="*{capacity}"></label>
+                    <input class="form-control" placeholder="Car Capacity" th:field="*{capacity}" type="text"/>
+                </div>
+                <!--dateRegistered-->
+                <div class="form-group">
+                    <div class="input-group-prepend">
+                        <label text="Capacity">Select first registration date of your car</label>
+                    </div>
+                    <label class="error" th:errors="*{dateRegistered}"></label>
+                    <input class="form-control" placeholder="Car Date Registered" th:field="*{dateRegistered}"
+                           type="date"/>
+                </div>
+                <!--hadAccidents-->
+                <div class="form-select">
+                    <span></span>
+                    <label text="Age">What is your Age?</label>
+                    <label class="error" th:errors="*{aboveTwentyFive}">Your Age:</label>
+                    <select th:field="*{aboveTwentyFive}">
+                        <option value="true">Under 25 years</option>
+                        <option value="false">25+ years</option>
+                    </select>
+                </div>
+                <br/>
+                <!--aboveTwentyFive-->
+                <div class="form-select">
+                    <span></span>
+                    <label text="Accidents">Did you have accidents in last year?</label>
+                    <label class="error" th:errors="*{hadAccidents}">You had Accidents last year ?</label>
+                    <select th:field="*{hadAccidents}">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <br/>
+                <!--Submit-->
+                <br/>
+                <div class="form-group">
+                    <div class="input-group-prepend">
+                        <input class="btn btn-default" id="save-button" type="submit"
+                               value="Check Price For Insurance"/>
+                    </div>
+                </div>
+            </form>
+            <div th:object="${result}">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="${result}">1234.33</li>
+                </ul>
+            </div>
+            <hr>
+            <div>
+                <label th:text="${message}" class="error"></label>
+                <label th:text="${offerError}" class="error"></label>
+            </div>
+            <!--                    <span th:text="${tooManyOffers}" style="color: aqua"></span>-->
+            <form th:action="@{/dedicated/simulation/append}" method="post" id="add-offer-dedicated">
+                <button value="Add Offer" type="submit" class="btn-default">Add Offer</button>
+            </form>
+            <!--                    <div class="form-group">-->
+            <!--                        <div class="input-group-prepend">-->
+            <!--                            <label>If you like the price you can continue to full policy request.</label>-->
+            <!--                            <input class="btn btn-default" id="continue-button" type="submit" value="Continue to Policy Request Form"/>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+
+<hr>
+
+<div th:insert="fragments/general.html :: services"></div>
+
+<div th:insert="fragments/general.html :: testimonials"></div>
+
+<div th:insert="fragments/general.html :: recent-news"></div>
+
+<div th:insert="fragments/general.html :: partners"></div>
+</div>
+<div class="clear"></div>
+<div th:insert="fragments/general.html :: footer"></div>
+<script th:href="@{https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js}"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js}"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script th:href="@{http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js}"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.flexslider-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/easyResponsiveTabs.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+<!--  <script type="application/javascript" th:src="@{/js/jquery-3.5.1.js}"></script> -->
+</body>
+
+</html>

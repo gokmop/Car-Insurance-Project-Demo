@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title >Policy - Print Preview View - Safety Car </title>
+    <link th:href="@{/assets/img/favicon.ico}" rel="shortcut icon" href="static/asset/favicon.png" />
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}"
+        href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css}"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"
+        type="text/css">
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/easy-responsive-tabs.css}" rel="stylesheet" type="text/css"
+        href="/static/css/easy-responsive-tabs.css" />
+    <link th:href="@{/css/flexslider.css}" rel="stylesheet" type="text/css" href="/static/css/flexslider.css" />
+    <link th:href="@{/css/owl.carousel.css}" rel="stylesheet" type="text/css" href="/static/css/owl.carousel.css">
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css" href="/static/css/icons.css">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/pdf-style.css}"
+        href="/static/css/pdf-style.css" />
+    <!--[if lt IE 8]><!-->
+    <link th:href="@{/css/ie7/ie7.css}" rel="stylesheet" href="/static/css/ie7/ie7.css">
+    <!--<![endif]-->
+    <link th:href="@{/css/styles.css}" href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script th:href="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script th:href="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}" src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".navbar-fixed-top">
+
+
+
+
+
+    <!--Show Policy Container -->
+    <div class="container" th:object="${policyDetails}">
+
+        <div class="row col-sm-12">
+
+            <div class='header'>
+                <table >
+                    <tr style="border:0; background-color: white">
+                        <td style="border:0;background-color: white"><span class="barcode">Insurance Policy with ID:[[${policyDetails.policyId}]] </span>
+                        </td>
+                        <td style="border:0;background-color: white" class="right"><img style="border: none" class="logo" th:src="@{/assets/img/logo.png}"
+                                src="logo.png" alt="logo"></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div>
+                <table id="header-table">
+                    <tr style="border:0;background-color: white" class="address-block">
+                        <td style="border:0; background-color: white;"></td>
+                        <td style="border:0;background-color: white" class="bottom right">
+                            <strong>SafeCar Inc.</strong><br>
+                            1000, Sofia, Ring Road #127,<br>
+                            "Safety Car - Building", Bulgaria
+                            Zip - 1000<br>
+                            <br>
+                            <b>Phone:</b> +359 987 654 321<br>
+                            <b>E-Mail:</b> info@safety-car.online<br>
+                        </td>
+                    </tr>
+                    <tr style="border:0; background-color: white" class="address-block">
+                        <td style="border:0; background-color: white" class="bottom">
+                            <strong>Policy issued to: [[${policyDetails.ownerFirstName}]]
+                                [[${policyDetails.ownerLastName}]]</strong><br>
+                            <br>
+                        </td>
+                        <td style="border:0; background-color: white" class="bottom right">
+                            Valid until: [[${policyDetails.endDate}]]
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+            </div>
+
+            <h1>Insurance Policy Issued [[${policyDetails.startDate}]]</h1>
+            <p>This is official PDF document representing all the details about your Insurance Policy</p>
+            
+            <div class="row col-sm-10" style="align-content: center; margin-top: 15px; margin-bottom: 15px">
+                <table class="table" id="policy-create-table" style="align-content: space-evenly">
+                    <thead>
+                        <tr>
+                            <th scope="col">Information</th>
+                            <th scope="col">Value</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Policy ID</td>
+                            <td th:text="${policyDetails.policyId}"></td>
+                        </tr>
+                        <tr>
+                            <td>Policy Start Date</td>
+                            <td th:text="${policyDetails.startDate}"></td>
+                        </tr>
+                        <tr>
+                            <td>Policy Submission Date</td>
+                            <td th:text="${policyDetails.submissionDate}"></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>First and Last Name</td>
+                            <td th:text="${policyDetails.ownerFirstName + ' ' + policyDetails.ownerLastName}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Telephone</td>
+                            <td th:text="${policyDetails.ownerTelephone}"></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td th:text="${policyDetails.ownerAddress}"></td>
+                        </tr>
+                        <tr>
+                            <td>Driver had accidents in previous year?</td>
+                            <td th:text="${policyDetails.accidentsInPreviousYear  == true ? 'Yes' : 'No' }"></td>
+                        </tr>
+                        <tr>
+                            <td>Driver is Above 25 years old?</td>
+                            <td th:text="${policyDetails.ownerAbove25Years  == true ? 'Yes' : 'No' }"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Car</td>
+                            <td th:text="${policyDetails.carMake + ' ' + policyDetails.carModel}"></td>
+                        </tr>
+                        <tr>
+                            <td>First Registration</td>
+                            <td th:text="${policyDetails.carFirstRegistration}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Policy Premium Total</td>
+                            <td th:text="'$' + ${policyDetails.policyPremium}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Print or Download this page!</td>
+                            <td><button type="button" class="btn-default" onclick="window.print();"> Print & Save
+                                </button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+    <script th:href="@{https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js}"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js}"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script
+        th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
+    <script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script th:href="@{http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js}"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.flexslider-min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/easyResponsiveTabs.js}"></script>
+    <script type="text/javascript" th:src="@{/js/owl.carousel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

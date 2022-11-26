@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments for the site</title>
+</head>
+<body>
+
+<!--Header Menu Fragment-->
+<div th:fragment="top-menu">
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 address">
+                        <i class="ti-location-pin"></i> 1000, Sofia, Ring Road #127, "Safety Car - Building", Bulgaria
+                    </div>
+                    <div class="col-sm-6 social">
+                        <ul>
+                            <li id="logged-user-details">
+                                <p sec:authorize="isAuthenticated()" >
+                                    Hello, <span sec:authentication="name"> </span>
+                                </p>
+                            </li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" th:href="@{/index}" href="index.html">
+                        Safety<span>Car</span>
+                    </a>
+                    <p>Call Us Now <b>+359 987 654 321</b></p>
+                </div>
+                <div class="collapse navbar-collapse navbar-main-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="index.html" th:href="@{/index}">Home</a>
+                        </li>
+
+                        <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_USER')">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User Menu
+                            </a>
+                            <header class="dropdown-menu">
+                                <p class="dropdown-item" >
+                                <p sec:authorize="hasRole('ROLE_USER')">
+                                 <a th:href="@{/users/profile}">My Profile</a></p>
+                                <p class="dropdown-item">
+                                <p sec:authorize="hasRole('ROLE_USER')">
+                                    <a th:href="@{/policies/user}">My Policies</a></p>
+                                <p class="dropdown-item">
+                                <p sec:authorize="hasRole('ROLE_USER')">
+                                    <a th:href="@{/my/offers}">My Offers</a></p>
+                            </header>
+                        </li>
+                        <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_AGENT')">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Admin Menu
+                            </a>
+                            <header class="dropdown-menu">
+                                <p class="dropdown-item">
+                                    <a  th:href="@{/users/show}">Users</a>
+                                </p>
+                                <p class="dropdown-item">
+                                    <a  th:href="@{/policies/agent}">Policies</a>
+                                </p>
+                                <p class="dropdown-item">
+                                    <a  th:href="@{/swagger-ui.html}">REST Docs</a>
+                                </p>
+                            </header>
+
+                        </li>
+                        <li>
+                            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                        </li>
+                        <li>
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+                        </li>
+
+                        <li>
+                            <a sec:authorize="hasRole('ROLE_USER')" th:href="@{/dedicated/simulation}">Dedicated Offer Page</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+</div>
+
+<!--Partners logo section -->
+<div th:fragment="partners">
+    <section class="partners">
+        <div class="container">
+            <div class="row">
+                <div class="parner-slider-mn">
+                    <div class="col-sm-3">
+                        <h2>
+                            <b>Insurance</b> Partners
+                        </h2>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="partner-slider owl-carousel">
+                            <div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-01.jpg}"
+                                            src="/static/assets/img/partner-logo-01.jpg" alt="Partner"/></p>
+                                </div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-04.jpg}"
+                                            src="/static/assets/img/partner-logo-04.jpg" alt="Partner"/></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-02.jpg}"
+                                            src="/static/assets/img/partner-logo-02.jpg" alt="Partner"/></p>
+                                </div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-05.jpg}"
+                                            src="/static/assets/img//partner-logo-05.jpg" alt="Partner"/></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-03.jpg}"
+                                            src="/static/assets/img/partner-logo-03.jpg" alt="Partner"/></p>
+                                </div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-06.jpg}"
+                                            src="/static/assets/img/partner-logo-06.jpg" alt="Partner"/></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-04.jpg}"
+                                            src="/static/assets/img/partner-logo-04.jpg" alt="Partner"/></p>
+                                </div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-01.jpg}"
+                                            src="/static/assets/img/partner-logo-01.jpg" alt="Partner"/></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-05.jpg}"
+                                            src="/static/assets/img/partner-logo-05.jpg" alt="Partner"/></p>
+                                </div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-02.jpg}"
+                                            src="/static/assets/img/partner-logo-02.jpg" alt="Partner"/></p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-06.jpg}"
+                                            src="/static/assets/img/partner-logo-06.jpg" alt="Partner"/></p>
+                                </div>
+                                <div class="partner-logo">
+                                    <p><img th:src="@{/assets/img/partner-logo-03.jpg}"
+                                            src="/static/assets/img/partner-logo-03.jpg" alt="Partner"/></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--Testimonials section-->
+<div th:fragment="testimonials">
+    <section class="testimonials">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h2 class="text-center">Know what people says about us.</h2>
+                    <div class="testimonial-tab">
+                        <div class="testimonials-tab-list">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0);" data-tab="tab1"><img
+                                            th:src="@{/assets/img/people-01.jpg}" src="/static/assets/img/people-01.jpg"
+                                            alt="Client"/></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-tab="tab2"><img
+                                            th:src="@{/assets/img/people-02.jpg}" src="/static/assets/img/people-02.jpg"
+                                            alt="Client"/></a>
+                                </li>
+                                <li class="active">
+                                    <a href="javascript:void(0);" data-tab="tab3"><img
+                                            th:src="@{/assets/img/people-03.jpg}" src="/static/assets/img/people-03.jpg"
+                                            alt="Client"/></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-tab="tab4"><img
+                                            th:src="@{/assets/img/people-04.jpg}" src="/static/assets/img/people-04.jpg"
+                                            alt="Client"/></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-tab="tab5"><img
+                                            th:src="@{/assets/img/people-05.jpg}" src="/static/assets/img/people-05.jpg"
+                                            alt="Client"/></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="testimonials-tab-content">
+                            <div class="clearfix testimonial-con" id="testimonial-tab1">
+                                <h3>John<br/><span>Developer</span></h3>
+                                <i class="fa fa-quote-left left-quote"></i>
+                                <p class="col-sm-offset-1 col-sm-10">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                    elit. Nam ante purus, aliquet ut urna id, blandit lobortis nisl. Phasellus varius
+                                    velit sed placerat euismod. Duis nisi massa, pretium at luctus.</p>
+                                <i class="fa fa-quote-right right-quote"></i>
+                            </div>
+                            <div class="clearfix testimonial-con" id="testimonial-tab2">
+                                <h3>Roger<br/><span>Baseball Player</span></h3>
+                                <i class="fa fa-quote-left left-quote"></i>
+                                <p class="col-sm-offset-1 col-sm-10">Cras vitae justo eu tellus maximus rutrum.
+                                    Vestibulum nibh nibh, varius nec vehicula sed, finibus in tortor. Aliquam dictum,
+                                    ligula vel euismod eleifend, libero est elementum</p>
+                                <i class="fa fa-quote-right right-quote"></i>
+                            </div>
+                            <div class="clearfix testimonial-con" id="testimonial-tab3">
+                                <h3>Victoria<br/><span>CEO</span></h3>
+                                <i class="fa fa-quote-left left-quote"></i>
+                                <p class="col-sm-offset-1 col-sm-10">Vivamus faucibus magna vitae purus blandit, rutrum
+                                    aliquam turpis bibendum. Ut sit amet sapien dolor. Integer eget orci id leo
+                                    consectetur iaculis ut vitae neque. Interdum et malesuada fames ac ante ipsum primis
+                                    in faucibus.</p>
+                                <i class="fa fa-quote-right right-quote"></i>
+                            </div>
+                            <div class="clearfix testimonial-con" id="testimonial-tab4">
+                                <h3>Liang<br/><span>Photographer</span></h3>
+                                <i class="fa fa-quote-left left-quote"></i>
+                                <p class="col-sm-offset-1 col-sm-10">Pellentesque feugiat suscipit quam, quis dignissim
+                                    massa. Suspendisse potenti. Donec porta tempus ipsum id rhoncus. Aliquam hendrerit
+                                    leo erat, non accumsan massa venenatis vitae.</p>
+                                <i class="fa fa-quote-right right-quote"></i>
+                            </div>
+                            <div class="clearfix testimonial-con" id="testimonial-tab5">
+                                <h3>Adam<br/><span>Student</span></h3>
+                                <i class="fa fa-quote-left left-quote"></i>
+                                <p class="col-sm-offset-1 col-sm-10">Vivamus faucibus magna vitae purus blandit, rutrum
+                                    aliquam turpis bibendum. Ut sit amet sapien dolor. Integer eget orci id leo
+                                    consectetur iaculis ut vitae neque.</p>
+                                <i class="fa fa-quote-right right-quote"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--Services section-->
+<div th:fragment="services">
+    <section class="services">
+        <h2 class="text-center">Our Best Services</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 services-dtl">
+                    <span class="fa fa-life-bouy"></span>
+                    <h3>24x7 Support</h3>
+                    <p>We have our support team working 24/7 365 days. We can fix any problem any time. Just contact us via e-mail, phone or live chat.</p>
+                </div>
+
+                <div class="col-sm-3 services-dtl">
+                    <span class="ti-pencil"></span>
+                    <h3>Easy Claim System</h3>
+                    <p>If you had accident, our Agents will help you if you need to claim the insurance coverage. We are here to help!</p>
+                </div>
+
+                <div class="col-sm-3 services-dtl">
+                    <span class="ti-email"></span>
+                    <h3>Get Started With us</h3>
+                    <p>Create an account in our website and you can get insurance policy today! Just a few click away.</p>
+                </div>
+
+                <div class="col-sm-3 services-dtl">
+                    <span class="fa fa-money"></span>
+                    <h3>Easy Installments</h3>
+                    <p>We are flexible about payments, for policies. You can have equal monthly payments with zero fees.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3 services-dtl">
+                    <span class="ti-wallet"></span>
+                    <h3>Pay as you like</h3>
+                    <p>We accept Visa, Master Card, Paysafe, GooglePay, ApplePay and 20+ other payment methods.</p>
+                </div>
+
+                <div class="col-sm-3 services-dtl">
+                    <span class="fa fa-laptop"></span>
+                    <h3>Online Account</h3>
+                    <p>You can see your Offers, Active policies and insured cars only with few simple clicks.</p>
+                </div>
+
+                <div class="col-sm-3 services-dtl">
+                    <span class="ti-lock"></span>
+                    <h3>Strongly Secure</h3>
+                    <p>Our application is working with the latest Security protocols and your data is safe with us.</p>
+                </div>
+
+                <div class="col-sm-3 services-dtl">
+                    <span class="ti-book"></span>
+                    <h3>Understandable Terms</h3>
+                    <p>Your insurance is easy to understand and with clear terms of service. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--Products Tabs section -->
+<div th:fragment="products">
+    <section class="product-tab">
+        <div class="container">
+            <div class="row">
+                <div id="parentVerticalTab">
+                    <h2>Our Services</h2>
+                    <ul class="resp-tabs-list hor_1 col-sm-3 col-md-3 col-lg-3">
+                        <li><i class="ti-home"></i> House Insurance</li>
+                        <li><i class="fa fa-plane"></i> Travel Insurance</li>
+                        <li><i class="ti-heart-broken"></i> Life Insurance</li>
+                        <li><i class="ti-car"></i> Car Insurance</li>
+                    </ul>
+                    <div class="col-sm-5 col-md-5 col-lg-5 resp-tabs-container hor_1">
+                        <div>
+                            <div class="prod-tab-content">
+                                <h4>
+                                    <span class="prod-cion"><i class="ti-home"></i></span>
+                                    House Insurance
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna,
+                                    euismod ut ornare non, volutpat vel tortor. Integer</p>
+                                <p>et placerat suscipit. Sed sodales scelerisque commodo. Nam porta cursus lectus. </p>
+                                <p class="tel">
+                                    <i class="fa fa-phone"></i> +359 987 654 321 <span>Toll Free</span>
+                                </p>
+                                <p>
+                                    <a class="btn-default" href="product-houseinsurance.html">Get Free Quote</a>
+                                </p>
+                            </div>
+                            <img th:src="@{assets/img/product-img.jpg}" src="/static/assets/img/product-img.jpg" alt=""
+                                 class="img-responsive"/>
+                        </div>
+                        <div>
+                            <div class="prod-tab-content">
+                                <h4>
+                                    <span class="prod-cion"><i class="fa fa-plane"></i></span>
+                                    Travel Insurance
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna,
+                                    euismod ut ornare non, volutpat vel tortor. Integer</p>
+                                <p>et placerat suscipit. Sed sodales scelerisque commodo. Nam porta cursus lectus. </p>
+                                <p class="tel">
+                                    <i class="fa fa-phone"></i> +359 987 654 321 <span>Toll Free</span>
+                                </p>
+                                <p>
+                                    <a class="btn-default" href="#">Get Free Quote</a>
+                                </p>
+                            </div>
+                            <img th:src="@{assets/img/1.jpg}" src="/static/assets/img/1.jpg" alt=""
+                                 class="img-responsive"/>
+                        </div>
+                        <div>
+                            <div class="prod-tab-content">
+                                <h4>
+                                    <span class="prod-cion"><i class="ti-heart-broken"></i></span>
+                                    Life Insurance
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna,
+                                    euismod ut ornare non, volutpat vel tortor. Integer</p>
+                                <p>et placerat suscipit. Sed sodales scelerisque commodo. Nam porta cursus lectus. </p>
+                                <p class="tel">
+                                    <i class="fa fa-phone"></i> +359 987 654 321 <span>Toll Free</span>
+                                </p>
+                                <p>
+                                    <a class="btn-default" href="#">Get Free Quote</a>
+                                </p>
+                            </div>
+                            <img th:src="@{assets/img/3.jpg}" src="/static/assets/img/3.jpg" alt=""
+                                 class="img-responsive"/>
+                        </div>
+                        <div>
+                            <div class="prod-tab-content">
+                                <h4>
+                                    <span class="prod-cion"><i class="ti-car"></i></span>
+                                    Car Insurance
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna,
+                                    euismod ut ornare non, volutpat vel tortor. Integer</p>
+                                <p>et placerat suscipit. Sed sodales scelerisque commodo. Nam porta cursus lectus. </p>
+                                <p class="tel">
+                                    <i class="fa fa-phone"></i> +359 987 654 321 <span>Toll Free</span>
+                                </p>
+                                <p>
+                                    <a class="btn-default" href="#">Get Free Quote</a>
+                                </p>
+                            </div>
+                            <img th:src="@{assets/img/2.jpg}" src="/static/assets/img/2.jpg" alt=""
+                                 class="img-responsive"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--Recent news section -->
+<div th:fragment="recent-news">
+    <section class="recent-news">
+        <h2 class="text-center">Recent News</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="news-sec-box">
+                        <span class="ti-pencil"></span>
+                        <h3><a href="#">Safety Car made 200K+ Policies in 2020!</a></h3>
+                        <p>1 Nov 2020</p>
+                        <div class="news-by">
+                            <a href="#"><img th:src="@{/assets/img/people-02.jpg}"
+                                             src="/static/assets/img/people-03.jpg"/></a>
+                            <a href="#">By SafetyCar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="news-sec-box">
+                        <span class="ti-image"></span>
+                        <h3><a href="#">New Insurance policy prices from December 2020!</a></h3>
+                        <p>3 Nov 2020</p>
+                        <div class="news-by">
+                            <a href="#"><img th:src="@{/assets/img/people-01.jpg}"
+                                             src="/static/assets/img/people-03.jpg"/></a>
+                            <a href="#">By SafetyCar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="news-sec-box">
+                        <span class="ti-comments"></span>
+                        <h3><a href="#">Home Insurance Coming Soon!</a></h3>
+                        <p>30 Oct 2020</p>
+                        <div class="news-by">
+                            <a href="#"><img th:src="@{/assets/img/people-05.jpg}"
+                                             src="/static/assets/img/people-03.jpg"/></a>
+                            <a href="#">By SafetyCar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="news-sec-box">
+                        <span class="ti-control-play"></span>
+                        <h3><a href="#">Travel Insurance for just $19</a></h3>
+                        <p>24 Oct 2020</p>
+                        <div class="news-by">
+                            <a href="#"><img th:src="@{/assets/img/people-02.jpg}"
+                                             src="/static/assets/img/people-03.jpg"/></a>
+                            <a href="#">By SafetyCar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--Footer-->
+<div th:fragment="footer">
+    <footer>
+        <div class="container">
+            <div class="row contact-sec">
+                <div class="col-md-5 col-lg-5">
+                    <h2>Safety<span>Car</span></h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>1000, Sofia, Ring Road #127, "Safety Car - Building", Bulgaria
+                                <br/>Zip - 1000</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-phone"></i> +359 987 654 321</a></li>
+                                <li><a href="#"><i class="ti-email"></i> info@safety-car.online</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-default">Contact Us</a>
+                </div>
+                <div class="col-md-5 col-lg-5 col-md-offset-2 col-lg-offset-2">
+                    <h2>Agent<span>Detail</span></h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>1000, Sofia, Ring Road #127, "Safety Car - Building", Bulgaria
+                                <br/>Zip - 1000</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-phone"></i> +359 876 459 321</a></li>
+                                <li><a href="#"><i class="ti-email"></i> agents@safety-car.online</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-default">Contact Agent</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-lg-8">
+                    <ul class="footer-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a sec:authorize="hasRole('ROLE_USER')" th:href="@{/users/profile}">User Menu</a></li>
+                        <li><a sec:authorize="hasRole('ROLE_AGENT')"  th:href="@{/users/show}">Show Users List</a></li>
+                        <li><a sec:authorize="hasRole('ROLE_AGENT')"  th:href="@{/policies/agent}">Show Policies List</a></li>
+                        <li><a sec:authorize="hasRole('ROLE_AGENT')"  th:href="@{/swagger-ui.html}">REST Docs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-lg-2 col-md-offset-2 col-lg-offset-2">
+                    <ul class="footer-social">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        Copyright &copy; 2020 <a th:href="@{https://gitlab.com/g.h.shutov/safety-car-project}">Safety Car - Georgi Shutov & Kamen Hristov</a>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 text-right">
+                        <a href="#">Terms & Conditions</a>
+                        <a href="#">Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+</body>
+</html>

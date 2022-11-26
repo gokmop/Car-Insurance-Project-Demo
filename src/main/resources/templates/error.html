@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Error page - Safety Car</title>
+    <link th:href="@{/assets/img/favicon.ico}" rel="shortcut icon" href="static/asset/favicon.png"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}"
+          href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"
+          type="text/css">
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/easy-responsive-tabs.css}" rel="stylesheet" type="text/css"
+          href="/static/css/easy-responsive-tabs.css"/>
+    <link th:href="@{/css/flexslider.css}" rel="stylesheet" type="text/css" href="/static/css/flexslider.css"/>
+    <link th:href="@{/css/owl.carousel.css}" rel="stylesheet" type="text/css" href="/static/css/owl.carousel.css">
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css" href="/static/css/icons.css">
+    <!--[if lt IE 8]><!-->
+    <link th:href="@{/css/ie7/ie7.css}" rel="stylesheet" href="/static/css/ie7/ie7.css">
+    <!--<![endif]-->
+    <link th:href="@{/css/styles.css}" href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script th:href="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"
+            src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script th:href="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"
+            src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".navbar-fixed-top">
+<div th:insert="fragments/general.html :: top-menu"></div>
+<div class="clear"></div>
+
+
+<!--First Section after Menu-->
+<div class="container-fluid">
+    <div class="row" id="heading-row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h2>An error has occurred</h2>
+            <h2 th:if="${statusCode == null}">
+                Bad Url
+            </h2>
+            <hr>
+            <h2 th:text="${message}">?!?!!?!?</h2>
+            <h2 th:text="${statusCode}">?!?!!?!?</h2>
+            <h1 th:text="${codeTitle}">?!?!!?!?</h1>
+            <hr>
+        </div>
+        <h6 th:text="${timeStamp}">?!?!!?!?</h6>
+        <hr>
+    </div>
+    <div class="col-3"></div>
+</div>
+</div>
+
+<hr>
+<!--        <div th:insert="fragments/general.html :: services"></div>-->
+
+<!--        <div th:insert="fragments/general.html :: testimonials"></div>-->
+
+<div th:insert="fragments/general.html :: recent-news"></div>
+
+<div th:insert="fragments/general.html :: partners"></div>
+</div>
+<div class="clear"></div>
+<div th:insert="fragments/general.html :: footer"></div>
+<script th:href="@{https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js}"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js}"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script th:href="@{http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js}"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.flexslider-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/easyResponsiveTabs.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Policies - List - Safety Car</title>
+    <link th:href="@{/assets/img/favicon.ico}" rel="shortcut icon" href="static/asset/favicon.png"/>
+    <link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}"
+          href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css}"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"
+          type="text/css">
+    <link th:href="@{/css/style.css}" href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/easy-responsive-tabs.css}" rel="stylesheet" type="text/css"
+          href="/static/css/easy-responsive-tabs.css"/>
+    <link th:href="@{/css/flexslider.css}" rel="stylesheet" type="text/css" href="/static/css/flexslider.css"/>
+    <link th:href="@{/css/owl.carousel.css}" rel="stylesheet" type="text/css" href="/static/css/owl.carousel.css">
+    <link th:href="@{/css/icons.css}" rel="stylesheet" type="text/css" href="/static/css/icons.css">
+    <!--[if lt IE 8]><!-->
+    <link th:href="@{/css/ie7/ie7.css}" rel="stylesheet" href="/static/css/ie7/ie7.css">
+    <!--<![endif]-->
+    <link th:href="@{/css/styles.css}" href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script th:href="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"
+            src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script th:href="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"
+            src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".navbar-fixed-top">
+
+<div th:insert="fragments/general.html :: top-menu"></div>
+
+<div class="clear"></div>
+
+
+<!--First Section after Menu-->
+<div class="container-fluid">
+    <div class="row" id="heading-row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h2>List of All Policies:</h2>
+            <hr>
+            <h4><i>Table of policies information</i></h4>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+
+
+<!--Show Policy Container -->
+<div class="container">
+    <div>
+        <div class="container">
+            <form sec:authorize="hasRole('ROLE_AGENT')" th:action="@{/policies/search/personal}"
+                  th:object="${searchPolicyDto}" method="get">
+                <div class="row justify-content-center">
+                    <div class="form-check">
+                        <input th:field="*{userId}" th:value="*{userId}" type="hidden">
+                    </div>
+
+                    <!-- Search input -->
+                    <div class="input-group mb-2 col-sm-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"></span>
+                        </div>
+                        <label>
+                            Search By Brand
+                            <input th:field="*{brand}" type="text" class="form-control"
+                                   placeholder=""
+                                   aria-describedby="basic-addon1">
+                        </label>
+                    </div>
+                    <!--Policy Status Parameter-->
+                    <div class="input-group mb-2 col-sm-2">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="agent-status-select">Filter By Policy Status</label>
+                        </div>
+                        <select th:field="*{status}" id="agent-status-select" class="custom-select">
+                            <option selected value="">Any</option>
+                            <option value="approved">Approved</option>
+                            <option value="pending">Pending</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <!--Sort Parameter-->
+                    <div class="input-group mb-2 col-sm-2">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="agent-sort-select">Sort By ...</label>
+                        </div>
+                        <select th:field="*{sortParam}" class="custom-select" id="agent-sort-select">
+                            <option selected value="id">Any</option>
+                            <option value="submissionDate">Submission Date</option>
+                            <option value="startDate">Start Date</option>
+                            <option value="endDate">End Date</option>
+                            <option value="premium">Policy Premium</option>
+                            <option value="capacity">Car Capacity</option>
+                            <option value="firstRegistration">Car Registration Date</option>
+                            <option value="status">Status</option>
+                        </select>
+                    </div>
+                    <!-- Sort Asc or Desc  -->
+                    <div class="input-group mb-2 col-sm-2">
+                        <label for="user-order-input">Order</label>
+                        <select id="user-order-input" th:field="*{desc}">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+                    <!-- Search button  -->
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-warning">Search!</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row col-sm-12" style="align-content: center">
+        <table class="table" id="policies-list-table" style="align-content: space-evenly">
+            <thead>
+            <tr id="policies-list-table-head">
+                <th> Policy Id</th>
+                <th> Owner Id</th>
+                <th> Car Brand</th>
+                <th> Car Model</th>
+                <th> Car First Reg.</th>
+                <th> Offer Id</th>
+                <th> Policy Premium</th>
+                <th> Submission Date</th>
+                <th> Start Date</th>
+                <th> Status</th>
+                <th> Link to Details</th>
+                <th> Policy Histories</th>
+                <th> Link to Manage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="policy : ${policies}">
+
+                <td th:text="*{policy.getPolicyId()}"></td>
+                <td th:text="*{policy.getOwnerId()}"></td>
+                <td th:text="*{policy.getCarMake()}"></td>
+                <td th:text="*{policy.getCarModel()}"></td>
+                <td th:text="*{policy.getCarFirstRegistration()}"></td>
+                <td th:text="*{policy.getOfferId()}"></td>
+                <td th:text="*{policy.getPolicyPremium()}"></td>
+                <td th:text="*{policy.getSubmissionDate()}"></td>
+                <td th:text="*{policy.getStartDate()}"></td>
+                <td th:text="*{policy.getStatus()}"></td>
+                <td>
+                    <div>
+                        <button type="button" class="btn btn-primary">
+                            <a th:href="@{/policy/__${policy.getPolicyId()}__}" style="color: white">Details</a>
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <!-- Button trigger modal qkoo-->
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            th:data-target="'#exampleModalLong-' + ${policy.getPolicyId()}">
+                        History
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="'exampleModalLong-' + ${policy.getPolicyId()}" tabindex="-1"
+                         role="dialog"
+                         th:aria-labelledby="'exampleModalLongTitle-' + ${policy.getPolicyId()}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" th:id="'exampleModalLongTitle-' + ${policy.getPolicyId()}"
+                                        th:text="'Policy ' + ${policy.getPolicyId()} + ' created on '+${policy.getSubmissionDate()}"></h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div th:if="${!policy.historyList.isEmpty()}">
+                                        <table>
+                                            <thead>
+                                            <tr id="policies-history-list-table-head">
+                                                <th> Policy Id</th>
+                                                <th> Actor</th>
+                                                <th> Action</th>
+                                                <th> History</th>
+                                                <th> Timestamp</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="history : ${policy.getHistoryList()}">
+
+                                                <td th:text="*{policy.getPolicyId()}"></td>
+                                                <td th:text="*{history.getActor().getFullName()}"></td>
+                                                <td th:text="*{history.getAction()}"></td>
+                                                <td th:text="*{history.getHistory()}"></td>
+                                                <td th:text="*{history.getTimestamp()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div th:if="${policy.historyList.isEmpty()}" class="resp-vtabs hor_1"> No History
+                                        for this Policy
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+                <td sec:authorize="hasRole('ROLE_AGENT')"><a th:href="@{/policy/manage/__${policy.getPolicyId()}__}">Manage</a>
+                </td>
+                <td sec:authorize="hasRole('ROLE_USER')"><a
+                        th:href="@{/users/manage/policy/__${policy.getPolicyId()}__}">Manage</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<!--Show Policy Container Fluid
+<div class="container-fluid" th:object="${policyDetails}">
+    <div class="row ti-align-center" id="policy-details-row">
+        <div class="col-md-6">
+            <h5 th:text="*{policyId}"> </h5>
+
+
+
+        </div>
+        <div class="col-6">
+            <div class="well">
+                <label for="ownerId" class="col-sm-2 col-form-label">Owner Id:</label>
+                <input type="text col-sm-2"  id="ownerId" th:text="*{ownerId}">
+                <label for="ownerFirstName" class="col-sm-2 col-form-label">Owner First Name:</label>
+                <input type="text col-sm-2"  id="ownerFirstName" th:text="*{ownerFirstName}">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+-->
+
+<hr>
+
+
+<hr>
+
+<div th:insert="fragments/general.html :: services"></div>
+
+<div th:insert="fragments/general.html :: testimonials"></div>
+
+<div th:insert="fragments/general.html :: recent-news"></div>
+
+<div th:insert="fragments/general.html :: partners"></div>
+</div>
+<div class="clear"></div>
+<div th:insert="fragments/general.html :: footer"></div>
+<script th:href="@{https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js}"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js}"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
+<script th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js}"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script th:href="@{http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js}"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.flexslider-min.js}"></script>
+<script type="text/javascript" th:src="@{/js/easyResponsiveTabs.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

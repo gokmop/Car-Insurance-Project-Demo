@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Login - Safety Car!</title>
+<!--Favicon Ico with Car-->
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon.ico}" href="../static/assets/img/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script th:src="@{https://use.fontawesome.com/releases/v5.13.0/js/all.js}" src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link th:href="@{https://fonts.googleapis.com/css?family=Montserrat:400,700}" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link th:href="@{https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic}" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+<link th:href="@{https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700}" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" href="../static/css/styles.css" rel="stylesheet" />
+<link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}"   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" crossorigin="anonymous">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="sidenav">
+        <div class="login-main-text">
+           <h2>Safety Car<br> Login Page</h2>
+           <p>Please Login or Register from here to access our website.</p>
+        </div>
+     </div>
+     <div class="main">
+        <div class="col-md-6 col-sm-12">
+           <div class="login-form">
+               <p>
+                   <i th:if="${error != null}" style="color: red"><strong th:text="${error}"></strong></i>
+                   <i th:if="${param.logout}" style="color: black"> <strong>You have successfully logged out.</strong></i>
+               </p>
+              <form method="post" th:action="@{/authenticate}">
+                 <div class="form-group">
+                    <label>E-mail:</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="E-mail">
+                 </div>
+                 <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" >
+                 </div>
+                 <button type="submit" class="btn btn-black">Login</button>
+              </form>
+               <br>
+               <form th:action="@{/register}">
+                     <button  type="submit" class="btn btn-info" th:href="@{/register}">Register</button>
+               </form>
+               <br>
+                   <button type="button" class="btn btn-primary">
+                       <a th:href="@{/index}" style="color: white">Home</a>
+                   </button>
+           </div>
+        </div>
+     </div>
+
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+</body>
+</html>
